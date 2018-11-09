@@ -18,8 +18,8 @@ from django.contrib import admin
 from app01 import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^publishes/$',views.PublishView.as_view()),
-    url(r'^publishes/(\d+)$',views.PublishDetaiView.as_view()),
-    url(r'^books/$',views.BookView.as_view()),
-    url(r'^books/(\d+)/$',views.BookDetailView.as_view())
+    url(r'^publishes/$',views.PublishView.as_view(),name="publish"),
+    url(r'^publishes/(?P<pk>\d+)$',views.PublishDetaiView.as_view(),name="detailpublish"),
+    url(r'^books/$',views.BookView.as_view(),name="books"),
+    url(r'^books/(\d+)/$',views.BookDetailView.as_view(),name="detailbook")
 ]

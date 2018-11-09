@@ -15,4 +15,10 @@ class BookModelSerializers(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = "__all__"
+    publish = serializers.HyperlinkedIdentityField(
+        view_name="detailpublish",
+        lookup_field="publish_id",
+        lookup_url_kwarg="pk"
+    )
+
 
