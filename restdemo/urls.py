@@ -18,8 +18,16 @@ from django.contrib import admin
 from app01 import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+
     url(r'^publishes/$',views.PublishView.as_view(),name="publish"),
     url(r'^publishes/(?P<pk>\d+)$',views.PublishDetaiView.as_view(),name="detailpublish"),
+
     url(r'^books/$',views.BookView.as_view(),name="books"),
-    url(r'^books/(\d+)/$',views.BookDetailView.as_view(),name="detailbook")
+    url(r'^books/(\d+)/$',views.BookDetailView.as_view(),name="detailbook"),
+
+    # url(r'^authors/$',views.AuthorView.as_view(),name='author'),
+    # url(r'^authors/(\d+)$',views.AuthorDetailView.as_view(),name="detailauthor")
+
+    url(r'^authors/$',views.AuthorModelView.as_view({'get':'list','post':'create'}),name='author'),
+    url(r'^authors/(?P<pk>\d+)$',views.AuthorModelView.as_view({"get":"retrieve","put":"update","delete":"destroy"}),name="detailauthor"),
 ]

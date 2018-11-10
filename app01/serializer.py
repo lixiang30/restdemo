@@ -21,4 +21,8 @@ class BookModelSerializers(serializers.ModelSerializer):
         lookup_url_kwarg="pk"
     )
 
+class AuthorModelSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Author
+        fields = "__all__"
 

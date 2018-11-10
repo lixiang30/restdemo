@@ -69,3 +69,46 @@ class BookDetailView(APIView):
     def delete(self,request,pk):
         book = Book.objects.filter(pk=pk).delete()
         return Response()
+
+# ==========================================================mixins类===================================================
+# from rest_framework import mixins
+# from rest_framework import generics
+# class AuthorView(mixins.ListModelMixin,mixins.CreateModelMixin,generics.GenericAPIView):
+#     queryset = Author.objects.all()
+#     serializer_class = AuthorModelSerializers
+#
+#     def get(self,request,*args,**kwargs):
+#         return self.list(request,*args,**kwargs)
+#
+#     def post(self,request,*args,**kwargs):
+#         return self.create(request,*args,**kwargs)
+#
+# class AuthorDetailView(mixins.RetrieveModelMixin,mixins.DestroyModelMixin,mixins.UpdateModelMixin,generics.GenericAPIView):
+#     queryset = Author.objects.all()
+#     serializer_class = AuthorModelSerializers
+#
+#     def get(self, request,*args, **kwargs):
+#         return self.retrieve(request,*args, **kwargs)
+#
+#     def delete(self, request,*args, **kwargs):
+#         return self.destroy(request,*args, **kwargs)
+#
+#     def put(self, request,*args, **kwargs):
+#         return self.update(request,*args, **kwargs)
+
+#  =================================================基于类的通用视图======================================================
+# from rest_framework import mixins
+# from rest_framework import generics
+# class AuthorView(generics.ListCreateAPIView):
+#     queryset = Author.objects.all()
+#     serializer_class = AuthorModelSerializers
+#
+# class AuthorDetailView(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Author.objects.all()
+#     serializer_class = AuthorModelSerializers
+
+
+from rest_framework import viewsets
+class AuthorModelView(viewsets.ModelViewSet):
+    queryset = Author.objects.all()
+    serializer_class = AuthorModelSerializers
