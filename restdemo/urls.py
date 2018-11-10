@@ -30,4 +30,6 @@ urlpatterns = [
 
     url(r'^authors/$',views.AuthorModelView.as_view({'get':'list','post':'create'}),name='author'),
     url(r'^authors/(?P<pk>\d+)$',views.AuthorModelView.as_view({"get":"retrieve","put":"update","delete":"destroy"}),name="detailauthor"),
+
+    url(r'^login/$',views.LoginView.as_view(),name='login')
 ]

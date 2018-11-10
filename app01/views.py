@@ -39,6 +39,8 @@ class PublishDetaiView(APIView):
 
 
 class BookView(APIView):
+ 
+
     def get(self,request):
         book_list = Book.objects.all()
         ps = BookModelSerializers(book_list,many=True,context={"request":request})
@@ -112,3 +114,28 @@ from rest_framework import viewsets
 class AuthorModelView(viewsets.ModelViewSet):
     queryset = Author.objects.all()
     serializer_class = AuthorModelSerializers
+
+# =====================================================认证==============================================================
+
+def get_random_str(user):
+    import hashlib,time
+    ctime = str(time.time())
+    md5 = hashlib.md5(bytes(user,encoding="utf-8"))
+    md5.update(bytes(ctime,encoding="utf-8"))
+    return md5.hexdigest()
+
+class LoginView(APIView):
+    def post(self,request):
+        name = request.data.get("name")
+        pwd = request.data.get("pwd")
+        user = User.objects.filter(name=name,pwd=pwd).first()
+        res = {"state_code":1000,"msg":None}
+        if user:
+            random_str = get_random_str(user.name)
+            token = Token.objects.update_or_create(user=user,defaults={"token":random_str})
+            res["token"] = str(token)
+        else:
+            res["token"] = 1001 # 错误的状态码
+            res["msg"] = "用户名或者密码错误"
+        import json
+        return Response(json.dumps(res))

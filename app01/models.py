@@ -22,3 +22,13 @@ class Author(models.Model):
     age = models.IntegerField()
     def __str__(self):
         return self.name
+
+class User(models.Model):
+    name = models.CharField(max_length=32)
+    pwd = models.CharField(max_length=32)
+
+class Token(models.Model):
+    user = models.OneToOneField("User")
+    token = models.CharField(max_length=128)
+    def __str__(self):
+        return self.token
