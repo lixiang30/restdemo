@@ -37,9 +37,25 @@ class PublishDetaiView(APIView):
         book = Publish.objects.filter(pk=pk).delete()
         return Response()
 
+from rest_framework import exceptions
+class TokenAuth(object):
+    def authenticate(self,request):
+        token = request.GET.get("token")
+        token_obj = Token.objects.filter(token=token).first()
+        if not token_obj:
+            raise exceptions.AuthenticationFailed("验证失败")
+        else:
+            return token_obj.user.name,token_obj.token  # 返回一个元组
+    def authenticate_header(self,request):
+        pass
 
 class BookView(APIView):
- 
+    # 认证
+    authentication_classes = [TokenAuth,]
+    # 权限
+    # permission_classes = []
+    # 频率
+    # throttle_classes = []
 
     def get(self,request):
         book_list = Book.objects.all()
