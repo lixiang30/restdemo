@@ -51,8 +51,6 @@ class TokenAuth(object):
     def authenticate_header(self,request):
         pass
 
-
-
 class BookView(APIView):
     # 认证
     # authentication_classes = [TokenAuth,]
