@@ -51,7 +51,7 @@ class TokenAuth(object):
 
 class BookView(APIView):
     # 认证
-    authentication_classes = [TokenAuth,]
+    # authentication_classes = [TokenAuth,]
     # 权限
     # permission_classes = []
     # 频率

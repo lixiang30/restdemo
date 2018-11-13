@@ -51,6 +51,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES":["app01.utils.TokenAuth",]
+}
+
 ROOT_URLCONF = 'restdemo.urls'
 
 TEMPLATES = [
