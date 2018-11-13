@@ -52,7 +52,8 @@ MIDDLEWARE = [
 ]
 
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES":["app01.utils.TokenAuth",]
+    "DEFAULT_AUTHENTICATION_CLASSES":["app01.utils.TokenAuth",],
+    "DEFAULT_PERMISSION_CLASSES":["app01.utils.SVIPPermission",]
 }
 
 ROOT_URLCONF = 'restdemo.urls'

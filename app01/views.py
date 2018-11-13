@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from .models import *
 from rest_framework.views import APIView
 from app01.serializer import *
+from app01.utils import SVIPPermission
 
 class PublishView(APIView):
     def get(self,request):
@@ -38,6 +39,7 @@ class PublishDetaiView(APIView):
         return Response()
 
 from rest_framework import exceptions
+#认证
 class TokenAuth(object):
     def authenticate(self,request):
         token = request.GET.get("token")
@@ -49,11 +51,13 @@ class TokenAuth(object):
     def authenticate_header(self,request):
         pass
 
+
+
 class BookView(APIView):
     # 认证
     # authentication_classes = [TokenAuth,]
     # 权限
-    # permission_classes = []
+    # permission_classes = [SVIPPermission,]
     # 频率
     # throttle_classes = []
 

@@ -12,3 +12,14 @@ class TokenAuth(BaseAuthentication):
             raise exceptions.AuthenticationFailed("验证失败123")
         else:
             return token_obj.user.name,token_obj.token
+
+# 权限
+class SVIPPermission(object):
+    message = "只有超级用户才能访问"
+    def has_permission(self,request,view):
+        username = request.user
+        user_type = User.objects.filter(name=username).first().user_type
+        if user_type == 3:
+            return True
+        else:
+            return False

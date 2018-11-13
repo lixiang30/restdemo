@@ -23,9 +23,15 @@ class Author(models.Model):
     def __str__(self):
         return self.name
 
+# class User(models.Model):
+#     name = models.CharField(max_length=32)
+#     pwd = models.CharField(max_length=32)
 class User(models.Model):
     name = models.CharField(max_length=32)
     pwd = models.CharField(max_length=32)
+    type_choice = ((1,"普通用户"),(2,"VIP"),(3,"SVIP"))
+    user_type = models.IntegerField(choices=type_choice,default=1)
+
 
 class Token(models.Model):
     user = models.OneToOneField("User")
