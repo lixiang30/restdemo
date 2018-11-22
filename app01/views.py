@@ -51,6 +51,18 @@ class TokenAuth(object):
     def authenticate_header(self,request):
         pass
 
+# ++++++++++++++++++++++++++++++++++++++++++++++++++分页+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+from rest_framework.pagination import PageNumberPagination,LimitOffsetPagination
+class MyPageNumberPagination(PageNumberPagination):
+    page_size = 1
+    page_query_param = 'page'
+    page_size_query_param = 'size'
+    max_page_size = 3
+
+class MyLimitOffsetPagination(LimitOffsetPagination):
+    default_limit = 1
+
+
 class BookView(APIView):
     # 认证
     # authentication_classes = [TokenAuth,]
@@ -61,7 +73,13 @@ class BookView(APIView):
 
     def get(self,request):
         book_list = Book.objects.all()
-        ps = BookModelSerializers(book_list,many=True,context={"request":request})
+
+        # 分页
+        # pnp = MyPageNumberPagination()
+        pnp = MyLimitOffsetPagination()
+        books_page = pnp.paginate_queryset(book_list,request,self)
+
+        ps = BookModelSerializers(books_page,many=True,context={"request":request})
         return Response(ps.data)
     def post(self,request):
         ps = BookModelSerializers(data=request.data)
@@ -127,11 +145,14 @@ class BookDetailView(APIView):
 #     queryset = Author.objects.all()
 #     serializer_class = AuthorModelSerializers
 
+from rest_framework.response import Response
+
 
 from rest_framework import viewsets
 class AuthorModelView(viewsets.ModelViewSet):
     queryset = Author.objects.all()
     serializer_class = AuthorModelSerializers
+    pagination_class = MyPageNumberPagination
 
 # =====================================================认证==============================================================
 

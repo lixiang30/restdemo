@@ -51,11 +51,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# REST_FRAMEWORK = {
-#     "DEFAULT_AUTHENTICATION_CLASSES":["app01.utils.TokenAuth",],
-#     "DEFAULT_PERMISSION_CLASSES":["app01.utils.SVIPPermission",],
-#     "DEFAULT_THROTTLE_CLASSES":['app01.utils.VisitThrottle',],
-# }
+REST_FRAMEWORK = {
+    # "DEFAULT_AUTHENTICATION_CLASSES":["app01.utils.TokenAuth",],
+    # "DEFAULT_PERMISSION_CLASSES":["app01.utils.SVIPPermission",],
+    # "DEFAULT_THROTTLE_CLASSES":['app01.utils.VisitThrottle',],
+    # "PAGE_SIZE":3,
+}
 
 ROOT_URLCONF = 'restdemo.urls'
 
