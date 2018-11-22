@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,HttpResponse
 
 # Create your views here.
 from rest_framework.response import Response
@@ -157,3 +157,14 @@ class LoginView(APIView):
             res["msg"] = "用户名或者密码错误"
         import json
         return Response(json.dumps(res))
+
+from rest_framework.parsers import JSONParser,FormParser
+class PaserView(APIView):
+    parser_classes = [JSONParser,FormParser]
+    # JSONParser:表示只能解析content-type:application/json的头
+    # FormParser:表示只能解析content-type:application/x-www-form-urlencoded的头
+
+    def post(self,request,*args,**kwargs):
+        # 获取解析的结果
+        print(request.data)
+        return HttpResponse('parser')
